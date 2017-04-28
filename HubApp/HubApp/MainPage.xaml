@@ -4,8 +4,9 @@
              xmlns:local="clr-namespace:HubApp"
              x:Class="HubApp.MainPage">
 
-	<Label Text="{Binding Descricao}" 
-           VerticalOptions="Center" 
-           HorizontalOptions="Center" />
+    <StackLayout>
+        <Entry Text="{Binding SearchTerm}"/>
+        <Button Text="Pesquisar" Command="{Binding SearchCommand}"/>
+    </StackLayout>
 
 </ContentPage>

@@ -1,36 +1,38 @@
-﻿using System.Threading.Tasks;
+﻿using Xamarin.Forms;
 
 namespace HubApp.ViewModels
 {
     public class MainViewModel: BaseViewModel
     {
-       
 
-        private string _descricao;
+        private string _searchTerm;
 
-        public string Descricao
+        public string SearchTerm
         {
-            get { return _descricao; }
-            set { SetProperty(ref _descricao, value); }
+            get { return _searchTerm; }
+            set
+            {
+                if (SetProperty(ref _searchTerm, value))
+                    SearchCommand.ChangeCanExecute();
+            }
         }
 
+        public Command SearchCommand { get; }
 
         public MainViewModel()
         {
-            Descricao = "Ola mundo";
-            Task.Delay(3000).ContinueWith(async t =>
-            {
-                Descricao = "O texto Mudou";
-                for (int i = 1; i <= 10; i++)
-                {
-                    await Task.Delay(1000);
-                    Descricao = $"O texto Mudou {i}";
-
-                }
-
-            });
+            SearchCommand = new Command(ExecuteSearchCommand,CanExecuteSearchCommand);
         }
 
-        
+        async void ExecuteSearchCommand()
+        {
+            // não é recomendável deixar o código abaixo, é somente para estudos
+            await App.Current.MainPage.DisplayAlert("HubApp", "mensagem", "OK");
+        }
+
+        bool CanExecuteSearchCommand()
+        {
+            return string.IsNullOrWhiteSpace(SearchTerm) == false;
+        }
     }
 }
