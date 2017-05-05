@@ -50,11 +50,20 @@ namespace HubApp.ViewModels
 
         public Command SearchCommand { get; }
 
+        public Command AboutCommand { get; }
+
         public MainViewModel()
         {
             SearchCommand = new Command(ExecuteSearchCommand,CanExecuteSearchCommand);
 
             Resultados = new ObservableCollection<Tag>();
+
+            AboutCommand = new Command(ExecuteAboutCommand);
+        }
+
+        async void ExecuteAboutCommand()
+        {
+            await PushAsync<AboutViewModel>();
         }
 
         async void ExecuteSearchCommand()
@@ -70,7 +79,7 @@ namespace HubApp.ViewModels
                     Resultados.Add(tag);
                 }
             }
-
+             
             
         }
 

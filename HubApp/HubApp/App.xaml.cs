@@ -13,7 +13,7 @@ namespace HubApp
         {
             InitializeComponent();
 
-            MainPage = new HubApp.MainPage();
+            MainPage = new NavigationPage(new MainPage());
         }
 
         protected override void OnStart()
